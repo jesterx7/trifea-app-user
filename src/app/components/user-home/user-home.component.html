@@ -1,0 +1,59 @@
+<!-- Header -->
+<header id="header" class="header">
+    <div class="header-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="alert alert-danger" role="alert" [hidden]="!searchLocSuccess">
+                      No Bus Availabe For Now
+                    </div>
+                    <div class="text-container">
+                        <form #searchForm="ngForm" (ngSubmit)="onSearchSubmit(searchForm.value)">
+                        	<h2>Bus App</h2>
+                            <p [hidden]="!error" style="color: red;">{{ error_message }}</p>
+                        	<div class="select-box">
+                        		<label for="select-box-1" class="label select-box"><span class="label-desc">Choose your origin</span></label>
+                        		<select id="select-box-1" class="select" ngModel name="origin" (change)="onOriginSelected($event.target.value)">
+                        			<option>Choose your origin</option>
+                        			<option *ngFor="let city of city_list" [value]="city['city_id']">{{ city['city_name'] }}</option>
+                        		</select>
+                        	</div>
+                        	<div class="select-box">
+                        		<label for="select-box-2" class="label select-box"><span class="label-desc">Choose your destination</span></label>
+                        		<select id="select-box-2" class="select" ngModel name="destination" (change)="onDestinationSelected($event.target.value)">
+                        			<option>Choose your destination</option>
+                        			<option *ngFor="let city of city_list" [value]="city['city_id']">{{ city['city_name'] }}</option>
+                        		</select>
+                        	</div>
+                            <div class="select-box" [hidden]="!tripVisible">
+                                <label for="select-box-3" class="label select-box"><span class="label-desc">Choose your trip</span></label>
+                                <select id="select-box-3" class="select" ngModel name="trip">
+                                    <option>Choose your Trip</option>
+                                    <option *ngFor="let trip of trip_list" [value]="trip['trip_id']">{{ trip['city_name'] }}</option>
+                                </select>
+                            </div>
+                        	<div class="form-group">
+                        		<button id="search-location" type="submit" class="form-control-submit-button">Search</button>
+                        	</div>
+                        </form>
+                    </div>
+                </div> <!-- end of col -->
+                <div class="col-lg-6" [hidden]="!search">
+                    <div class="image-container">
+                        <agm-map id="user-map" [zoom]="zoom" [latitude]="origin_lat" [longitude]="origin_lng" (mapReady)="mapReady($event)">
+                        	<agm-marker [latitude]="origin_lat" [longitude]="origin_lng" [iconUrl]="user_marker_url"></agm-marker>
+                        	<agm-marker *ngFor="let loc of driver_loc; let i = index; trackBy : identify" class="driver-marker" [latitude]="loc['loc_latitude']" [longitude]="loc['loc_longitude']" [iconUrl]="bus_marker_url">
+                                <agm-info-window>
+                                    <div>{{ schedule_list[i][1] }} - {{ schedule_list[i][2] }}</div>
+                                    <div>{{ schedule_list[i][3] }} - {{ schedule_list[i][4] | currency:'Rp '}}</div>
+                                    <button class="btn btn-success btn-order" (click)="onOrderClicked(schedule_list[i][0])"> Order Now </button>
+                                </agm-info-window>
+                            </agm-marker>
+                        </agm-map>
+                    </div> <!-- end of image-container -->
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of header-content -->
+</header> <!-- end of header -->
+<!-- end of header -->

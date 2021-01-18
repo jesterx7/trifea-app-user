@@ -1,0 +1,11 @@
+#user-map {
+	height: 400px;
+	margin-bottom: 1.0rem;
+}
+
+.btn-order {
+	float: right;
+	width: 100%;
+	font-size: 12px;
+	margin-top: 5px;
+}
