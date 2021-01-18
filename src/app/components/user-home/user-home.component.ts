@@ -95,10 +95,11 @@ export class UserHomeComponent implements OnInit {
     return '';
   }
 
-  onOrderClicked(schedule_id) {
+  onOrderForm(data) {
     let params = new HttpParams();
     params = params.append('user_id', this.getCookie('user_id'));
-    params = params.append('schedule_id', schedule_id);
+    params = params.append('schedule_id', data.schedule);
+    params = params.append('quantity', data.quantity);
     params = params.append('trip_id', this.trip_id.toString());
 
     const httpOptions: { headers; observe; } = {
