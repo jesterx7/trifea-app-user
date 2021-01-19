@@ -37,6 +37,7 @@ export class UserHomeComponent implements OnInit {
 
   driver_loc = [];
   city_list: any;
+  type_list: any;
   schedule_list = [];
   trip_list = [];
 
@@ -158,7 +159,7 @@ export class UserHomeComponent implements OnInit {
 
   	this.http.post('https://trifea.000webhostapp.com/api/get_driver_loc', data, httpOptions).subscribe(
   	(resp) => {
-  		if(resp['body']['status']) {
+  		if(resp['body']['status'] && resp['body']['driver_loc'].length) {
         this.markerClicked();
         this.driver_loc = resp['body']['driver_loc'];
         this.trip_id = data['trip'];
@@ -178,11 +179,18 @@ export class UserHomeComponent implements OnInit {
     });
   }
 
+  getBusTypeApi(url) {
+    this.http.get(url).toPromise().then(resp => {
+      this.type_list = resp;
+    });
+  }
+
   getTrackDataApi(url) {
     var params = '?origin=' + this.origin_city_id.toString() + '&destination=' + this.destination_city_id.toString();
     this.http.get(url+params).toPromise().then(resp => {
       if (resp['status']) {
         this.getTripDataApi('https://trifea.000webhostapp.com/api/get_trip', resp['data'][0]['track_id']);
+        this.getBusTypeApi('https://trifea.000webhostapp.com/api/get_bus_type');
         this.error = false;
       } else {
         this.error = true;
