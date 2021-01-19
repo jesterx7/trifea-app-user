@@ -32,6 +32,13 @@
                                     <option *ngFor="let trip of trip_list" [value]="trip['trip_id']">{{ trip['city_name'] }}</option>
                                 </select>
                             </div>
+                            <div class="select-box" [hidden]="!tripVisible">
+                                <label for="select-box-4" class="label select-box"><span class="label-desc">Choose your Bus Type</span></label>
+                                <select id="select-box-4" class="select" ngModel name="bus_type">
+                                    <option>Choose your Bus Type</option>
+                                    <option *ngFor="let bus_type of type_list" [value]="bus_type['type_id']">{{ bus_type['type_name'] }}</option>
+                                </select>
+                            </div>
                         	<div class="form-group">
                         		<button id="search-location" type="submit" class="form-control-submit-button">Search</button>
                         	</div>
