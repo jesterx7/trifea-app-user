@@ -10,6 +10,9 @@ import { NgForm, NgModel } from '@angular/forms';
 
 export class LoginComponent implements OnInit {
 
+  error = false;
+  error_message = '';
+
   constructor(private http:HttpClient) { }
 
   onLoginSubmit(data) {
@@ -29,7 +32,10 @@ export class LoginComponent implements OnInit {
   			this.setCookie('email', resp['body']['email'], 1, 'USER_COOKIE');
         this.setCookie('address', resp['body']['address'], 1, 'USER_COOKIE');
         this.setCookie('phone_number', resp['body']['phone_number'], 1, 'USER_COOKIE');
-  		}
+  		}else{
+        this.error = true;
+        this.error_message = 'Wrong Username / Password';
+      }
   	});
   }
   
