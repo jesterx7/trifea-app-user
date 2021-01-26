@@ -9,3 +9,9 @@ input.ng-valid {
 .error {
 	color: red;
 }
+
+#ic-bus {
+	color: #fff;
+    text-shadow: 1px 1px 1px #ccc;
+    font-size: 0.8em;
+}
