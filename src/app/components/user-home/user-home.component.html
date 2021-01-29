@@ -13,16 +13,9 @@
                             <p [hidden]="!error" style="color: red;">{{ error_message }}</p>
                         	<div class="select-box">
                         		<label for="select-box-1" class="label select-box"><span class="label-desc">Choose your origin</span></label>
-                        		<select id="select-box-1" class="select" ngModel name="origin" (change)="onOriginSelected($event.target.value)">
-                        			<option>Choose your origin</option>
-                        			<option *ngFor="let city of city_list" [value]="city['city_id']">{{ city['city_name'] }}</option>
-                        		</select>
-                        	</div>
-                        	<div class="select-box">
-                        		<label for="select-box-2" class="label select-box"><span class="label-desc">Choose your destination</span></label>
-                        		<select id="select-box-2" class="select" ngModel name="destination" (change)="onDestinationSelected($event.target.value)">
-                        			<option>Choose your destination</option>
-                        			<option *ngFor="let city of city_list" [value]="city['city_id']">{{ city['city_name'] }}</option>
+                        		<select id="select-box-1" class="select" ngModel name="track" (change)="onTrackSelected($event.target.value)">
+                        			<option>Choose your track</option>
+                        			<option *ngFor="let track of track_list" [value]="track['track_id']">{{ track['track_name'] }}</option>
                         		</select>
                         	</div>
                             <div class="select-box" [hidden]="!tripVisible">

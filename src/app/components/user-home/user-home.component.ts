@@ -24,8 +24,7 @@ export class UserHomeComponent implements OnInit {
   error = false;
   error_message = '';
 
-  origin_city_id = 0;
-  destination_city_id = 0;
+  track_id = 0;
   trip_id = 0;
 
   user_marker_url = "./assets/icons/user-marker.png";
@@ -36,8 +35,8 @@ export class UserHomeComponent implements OnInit {
   tripVisible = false;
 
   driver_loc = [];
-  city_list: any;
   type_list: any;
+  track_list: any;
   schedule_list = [];
   trip_list = [];
 
@@ -120,15 +119,11 @@ export class UserHomeComponent implements OnInit {
     });
   }
 
-  onOriginSelected(data) {
-    this.origin_city_id = data;
+  onTrackSelected(data) {
+    this.track_id = data;
+    this.getTripDataApi('https://trifea.000webhostapp.com/api/get_trip');
   }
-
-  onDestinationSelected(data) {
-    this.destination_city_id = data;
-    this.getTrackDataApi('https://trifea.000webhostapp.com/api/get_track');
-  }
-
+  
   identify(index, item) {
     return item.name;
   }
@@ -173,12 +168,6 @@ export class UserHomeComponent implements OnInit {
   	});
   }
 
-  getCityDataApi(url) {
-    this.http.get(url).toPromise().then(resp => {
-      this.city_list = resp;
-    });
-  }
-
   getBusTypeApi(url) {
     this.http.get(url).toPromise().then(resp => {
       this.type_list = resp;
@@ -186,11 +175,9 @@ export class UserHomeComponent implements OnInit {
   }
 
   getTrackDataApi(url) {
-    var params = '?origin=' + this.origin_city_id.toString() + '&destination=' + this.destination_city_id.toString();
-    this.http.get(url+params).toPromise().then(resp => {
+    this.http.get(url).toPromise().then(resp => {
       if (resp['status']) {
-        this.getTripDataApi('https://trifea.000webhostapp.com/api/get_trip', resp['data'][0]['track_id']);
-        this.getBusTypeApi('https://trifea.000webhostapp.com/api/get_bus_type');
+        this.track_list = resp['data'];
         this.error = false;
       } else {
         this.error = true;
@@ -199,8 +186,8 @@ export class UserHomeComponent implements OnInit {
     });
   }
 
-  getTripDataApi(url, track_id) {
-    var params = '?track=' + track_id.toString();
+  getTripDataApi(url) {
+    var params = '?track=' + this.track_id.toString();
     this.http.get(url+params).toPromise().then(resp => {
       if (resp['status']) {
         this.trip_list = resp['data'];
@@ -232,6 +219,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCityDataApi('https://trifea.000webhostapp.com/api/get_city_list');
+    this.getTrackDataApi('https://trifea.000webhostapp.com/api/get_track_all');
+    this.getBusTypeApi('https://trifea.000webhostapp.com/api/get_bus_type');
   }
 }
