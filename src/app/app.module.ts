@@ -16,6 +16,7 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AgmCoreModule } from '@agm/core';
 import { RegisterComponent } from './components/register/register.component';
+import { HistoryComponent } from './components/history/history.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RegisterComponent } from './components/register/register.component';
     UserHeaderComponent,
     UserHomeComponent,
     UserProfileComponent,
-    RegisterComponent
+    RegisterComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
