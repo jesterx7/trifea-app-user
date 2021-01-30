@@ -95,7 +95,7 @@ export class UserHomeComponent implements OnInit {
     return '';
   }
 
-  onOrderForm(data) {
+  onRequestForm(data) {
     let params = new HttpParams();
     params = params.append('user_id', this.getCookie('user_id'));
     params = params.append('schedule_id', data.schedule);
@@ -109,7 +109,7 @@ export class UserHomeComponent implements OnInit {
       observe: 'response'
     };
 
-    this.http.post('https://trifea.000webhostapp.com/api/user_order', params, httpOptions).subscribe(
+    this.http.post('https://trifea.000webhostapp.com/api/user_request', params, httpOptions).subscribe(
     (resp) => {
       if(resp['body']['status']) {
         alert(resp['body']['msg']);
@@ -198,7 +198,7 @@ export class UserHomeComponent implements OnInit {
 
   watchCurrentPosition() {
     navigator.geolocation.watchPosition(
-      (position: Position) => {
+      (position: any) => {
         this.origin_lat = position.coords.latitude;
         this.origin_lng = position.coords.longitude;
         this.setUserLocation();
@@ -209,7 +209,7 @@ export class UserHomeComponent implements OnInit {
 
   getCurrentLocation() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position: Position) => {
+      navigator.geolocation.getCurrentPosition((position: any) => {
         if (position) {
           this.origin_lat = position.coords.latitude;
           this.origin_lng = position.coords.longitude;
