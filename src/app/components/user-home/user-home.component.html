@@ -46,10 +46,10 @@
                                 <agm-info-window>
                                     <div>{{ schedule_list[i][1] }} - {{ schedule_list[i][2] }}</div>
                                     <div>{{ schedule_list[i][3] }} - {{ schedule_list[i][4] | currency:'Rp '}}</div>
-                                    <form #orderForm="ngForm" (ngSubmit)="onOrderForm(orderForm.value)" data-toggle="validator" data-focus="false">
+                                    <form #requestForm="ngForm" (ngSubmit)="onRequestForm(requestForm.value)" data-toggle="validator" data-focus="false">
                                         <input type="number" ngModel required name="quantity" placeholder="Quantity">
                                         <input type="number" [ngModel]="schedule_list[i][0]" name="schedule"  hidden="true">
-                                        <button type="submit" class="btn btn-success btn-order"> Order Now </button>
+                                        <button type="submit" class="btn btn-success btn-request"> Request Now </button>
                                     </form>
                                 </agm-info-window>
                             </agm-marker>
