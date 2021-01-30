@@ -28,9 +28,7 @@ export class HistoryComponent implements OnInit {
 
   getHistoryDataApi(url) {
   	url = url + "?user_id=" + this.getCookie('user_id');
-  	console.log(url);
   	this.http.get(url).toPromise().then(resp => {
-  		console.log(resp);
   		if (resp['status']) {
   			this.history_list = resp['data'];
   		}
@@ -38,7 +36,7 @@ export class HistoryComponent implements OnInit {
   }  
 
   ngOnInit(): void {
-  	this.getHistoryDataApi("https://trifea.000webhostapp.com/api/get_user_order_status");
+  	this.getHistoryDataApi("https://trifea.000webhostapp.com/api/get_user_request_status");
   }
 
 }
