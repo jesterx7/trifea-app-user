@@ -1,0 +1,46 @@
+<!-- Contact -->
+<div id="signin" class="form">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>ORDER STATUS</h2>
+            </div>
+        </div>
+        <div class="row">
+        	<div class="col-lg-12">
+        		<div class="table">
+					<div class="table-row row header">
+						<div class="cell">
+							Police Number
+						</div>
+						<div class="cell">
+							Track
+						</div>
+						<div class="cell">
+							Type
+						</div>
+						<div class="cell">
+							Status
+						</div>
+					</div>
+					<div class="table-row row" *ngFor="let history of history_list">
+						<div class="cell data-cell" >
+							{{ history.police_number }}
+						</div>
+						<div class="cell data-cell" >
+							{{ history.track_name }}
+						</div>
+						<div class="cell data-cell" >
+							{{ history.type_name }}
+						</div>
+						<div class="cell data-cell" >
+							{{ history.status }}
+						</div>
+					</div>
+				</div>
+                <!-- end of contact form -->
+            </div> <!-- end of col -->
+        </div> <!-- end of table-row row -->
+    </div> <!-- end of container -->
+</div> <!-- end of form -->
+<!-- end of contact -->
