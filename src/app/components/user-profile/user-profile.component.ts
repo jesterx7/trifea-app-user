@@ -46,7 +46,7 @@ export class UserProfileComponent implements OnInit {
   		observe: 'response'
   	};
 
-  	this.http.post('https://trifea.000webhostapp.com/api/update_profile', data, httpOptions).subscribe(
+  	this.http.post('http://127.0.0.1:8000/api/update_profile', data, httpOptions).subscribe(
   	(resp) => {
   		if(resp['body']['status']) {
   			window.location.href = '/profile';

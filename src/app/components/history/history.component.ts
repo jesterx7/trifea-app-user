@@ -36,7 +36,7 @@ export class HistoryComponent implements OnInit {
   }  
 
   ngOnInit(): void {
-  	this.getHistoryDataApi("https://trifea.000webhostapp.com/api/get_user_request_status");
+  	this.getHistoryDataApi("http://127.0.0.1:8000/api/get_user_request_status");
   }
 
 }
