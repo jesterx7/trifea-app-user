@@ -55,10 +55,10 @@ export class UserHomeComponent implements OnInit {
       observe: 'response'
     };
 
-    this.http.post('https://trifea.000webhostapp.com/api/get_loc', params, httpOptions).subscribe(
+    this.http.post('http://127.0.0.1:8000/api/get_loc', params, httpOptions).subscribe(
     (resp) => {
-      if(resp['body']['status']) {
-        this.driver_loc = resp['body']['driver_loc'];
+      if(resp['body']['data']['status']) {
+        this.driver_loc = resp['body']['data']['driver_loc'];
       }
     });
   }
@@ -76,7 +76,7 @@ export class UserHomeComponent implements OnInit {
       observe: 'response'
     };
 
-    this.http.post('https://trifea.000webhostapp.com/api/update_user_loc', params, httpOptions).subscribe(
+    this.http.post('http://127.0.0.1:8000/api/update_user_loc', params, httpOptions).subscribe(
     (resp) => {});
   }
 
@@ -109,10 +109,10 @@ export class UserHomeComponent implements OnInit {
       observe: 'response'
     };
 
-    this.http.post('https://trifea.000webhostapp.com/api/user_request', params, httpOptions).subscribe(
+    this.http.post('http://127.0.0.1:8000/api/user_request', params, httpOptions).subscribe(
     (resp) => {
       if(resp['body']['status']) {
-        alert(resp['body']['msg']);
+        alert(resp['body']['message']);
       } else {
         console.log('failed');
       }
@@ -121,7 +121,7 @@ export class UserHomeComponent implements OnInit {
 
   onTrackSelected(data) {
     this.track_id = data;
-    this.getTripDataApi('https://trifea.000webhostapp.com/api/get_trip');
+    this.getTripDataApi('http://127.0.0.1:8000/api/get_trip');
   }
   
   identify(index, item) {
@@ -152,14 +152,14 @@ export class UserHomeComponent implements OnInit {
   		observe: 'response'
   	};
 
-  	this.http.post('https://trifea.000webhostapp.com/api/get_driver_loc', data, httpOptions).subscribe(
+  	this.http.post('http://127.0.0.1:8000/api/get_driver_loc', data, httpOptions).subscribe(
   	(resp) => {
-  		if(resp['body']['status'] && resp['body']['driver_loc'].length) {
+  		if(resp['body']['status'] && resp['body']['data']['driver_loc'].length) {
         this.markerClicked();
-        this.driver_loc = resp['body']['driver_loc'];
+        this.driver_loc = resp['body']['data']['driver_loc'];
         this.trip_id = data['trip'];
-        this.schedule_list = resp['body']['schedule_list'];
-        this.loc_timer.subscribe(val => this.updateBusLoc(resp['body']['driver_list']));
+        this.schedule_list = resp['body']['data']['schedule_list'];
+        this.loc_timer.subscribe(val => this.updateBusLoc(resp['body']['data']['driver_list']));
   			this.search = true;
         this.searchLocSuccess = false;
   		} else {
@@ -170,7 +170,9 @@ export class UserHomeComponent implements OnInit {
 
   getBusTypeApi(url) {
     this.http.get(url).toPromise().then(resp => {
-      this.type_list = resp;
+      if (resp['status']) {
+        this.type_list = resp['data'];
+      }
     });
   }
 
@@ -219,7 +221,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getTrackDataApi('https://trifea.000webhostapp.com/api/get_track_all');
-    this.getBusTypeApi('https://trifea.000webhostapp.com/api/get_bus_type');
+    this.getTrackDataApi('http://127.0.0.1:8000/api/get_track_all');
+    this.getBusTypeApi('http://127.0.0.1:8000/api/get_bus_type');
   }
 }

@@ -23,15 +23,15 @@ export class LoginComponent implements OnInit {
   		observe: 'response'
   	};
 
-  	this.http.post('https://trifea.000webhostapp.com/api/login_user', data, httpOptions).subscribe(
+  	this.http.post('http://127.0.0.1:8000/api/login_user', data, httpOptions).subscribe(
   	(resp) => {
   		if(resp['body']['status']) {
   			window.location.href = '/bus';
-        this.setCookie('user_id', resp['body']['user_id'], 1, 'USER_COOKIE');
-  			this.setCookie('name', resp['body']['name'], 1, 'USER_COOKIE');
-  			this.setCookie('email', resp['body']['email'], 1, 'USER_COOKIE');
-        this.setCookie('address', resp['body']['address'], 1, 'USER_COOKIE');
-        this.setCookie('phone_number', resp['body']['phone_number'], 1, 'USER_COOKIE');
+        this.setCookie('user_id', resp['body']['data']['id'], 1, 'USER_COOKIE');
+  			this.setCookie('name', resp['body']['data']['name'], 1, 'USER_COOKIE');
+  			this.setCookie('email', resp['body']['data']['email'], 1, 'USER_COOKIE');
+        this.setCookie('address', resp['body']['data']['address'], 1, 'USER_COOKIE');
+        this.setCookie('phone_number', resp['body']['data']['phone_number'], 1, 'USER_COOKIE');
   		}else{
         this.error = true;
         this.error_message = 'Wrong Username / Password';
